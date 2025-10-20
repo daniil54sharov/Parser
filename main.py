@@ -9,11 +9,16 @@ print('status code : ' + str(response.status_code))
 
 if response.ok:
     soup = BeautifulSoup(response.text, 'html.parser')
-    for book in soup.find_all('article', class_ = 'product_pod'):
+    for book in soup.find_all('article', class_='product_pod'):
         title = book.h3.a['title']
-        price = book.find('p', class_ = 'price_color').text
-        rating = 0
-        for star in book.find('p', class_ = 'star-rating Three'):
-            i_item = star.find('i', class_ = 'icon-star')
-            rating += 1
-        print(title, price, "rating", rating, sep = ' : ', end = '\n')
+        price = book.find('p', class_='price_color').text
+        rating_tag = book.find('p', class_='star-rating')
+
+        # Достаём название рейтинга (One, Two, Three, Four, Five)
+        rating_name = rating_tag['class'][1]
+
+        # Преобразуем в число
+        rating_map = {'One': 1, 'Two': 2, 'Three': 3, 'Four': 4, 'Five': 5}
+        rating = rating_map.get(rating_name, 0)
+
+        print(f"{title} : {price} : ⭐ {rating}")
