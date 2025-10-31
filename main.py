@@ -21,4 +21,8 @@ if response.ok:
         rating_map = {'One': 1, 'Two': 2, 'Three': 3, 'Four': 4, 'Five': 5}
         rating = rating_map.get(rating_name, 0)
 
-        print(f"{title} : {price} : ⭐ {rating}")
+        # достаем изображение
+        image_tag = book.find('img')
+        image_src = image_tag['src']
+
+        print(f"{title} : {price} : ⭐ {rating} : {image_src}")
