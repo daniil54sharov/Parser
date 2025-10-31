@@ -2,8 +2,14 @@ from bs4 import BeautifulSoup
 import requests
 
 url = 'https://books.toscrape.com/'
-response = requests.get(url)
 soup = None
+response = None
+
+try:
+    response = requests.get(url)
+except Exception as e:
+    print("An exception occurred related to HTTP request: ", e)
+
 
 print('status code : ' + str(response.status_code))
 
